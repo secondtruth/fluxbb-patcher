@@ -855,12 +855,6 @@ else
 		{
 ?>
 							<table>
-								<thead>
-									<tr>
-										<th class="tcl"><?php echo $lang_admin_plugin_patcher['Mod title'] ?></th>
-										<th class="tcr" style="width: 30%"><?php echo $lang_admin_plugin_patcher['Action'] ?></th>
-									</tr>
-								</thead>
 								<tbody>
 <?php
 
@@ -881,13 +875,15 @@ else
 					$info[] = ' '.$lang_admin_plugin_patcher['by'].' <a href="mailto:'.pun_htmlspecialchars($flux_mod->author_email).'">'.pun_htmlspecialchars($flux_mod->author).'</a>';
 				elseif (isset($flux_mod->author))
 					$info[] = ' '.$lang_admin_plugin_patcher['by'].' '.pun_htmlspecialchars($flux_mod->author);
+                
+                $info[] = '<br /><small>';
 
 				if (isset($flux_mod->description))
 				{
 					if (strlen($flux_mod->description) > 400)
-						$info[] = '<br />'.pun_htmlspecialchars(substr($flux_mod->description, 0, 400)).'...';
+						$info[] = pun_htmlspecialchars(substr($flux_mod->description, 0, 400)).'...';
 					else
-						$info[] = '<br />'.pun_htmlspecialchars($flux_mod->description);
+						$info[] = pun_htmlspecialchars($flux_mod->description);
 				}
 
 				// Is the mod compatible with FluxBB version
@@ -900,6 +896,8 @@ else
 				$works_on = '';
 				if (get_class($flux_mod) == 'FLUX_MOD' && isset($flux_mod->works_on))
 					$info[] = '<br /><strong>'.$lang_admin_plugin_patcher['Works on FluxBB'].'</strong>: '.pun_htmlspecialchars(implode(', ', $flux_mod->works_on));
+                
+                $info[] = '</small>';
 
 				$status = '';
 				$actions = array(array(), array());
@@ -966,7 +964,7 @@ else
 ?>
 									<tr class="mod-info <?php echo ($i % 2 == 0) ? 'roweven' : 'rowodd' ?>">
 										<td><?php echo implode("\n", $info) ?></td>
-										<td class="tcr">
+										<td class="tcr" style="width: 20%; text-align: center;">
 											<?php echo ($status != '') ? $status.'<br />' : '' ?>
 											<?php echo implode('<br />'."\n", $actions_info) ?>
 										</td>
